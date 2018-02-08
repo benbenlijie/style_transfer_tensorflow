@@ -3,6 +3,12 @@ A tensorflow implementation for [Perceptual Losses for Real-Time Style Transfer 
 In this project, I build a model with Tensorflow and slim for image style transfer.
 
 ## Result:
+| sample | origin |
+| :---: | :---: |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test.jpg)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test1.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test1.jpg)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test2.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test2.jpg)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test3.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test3.jpg)  |
 
 
 
