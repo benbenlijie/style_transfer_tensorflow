@@ -53,7 +53,8 @@ class StyleTransfer:
         image = get_image(self.FLAGS.num_samples, self.FLAGS.image_size, self.FLAGS.tfrecord_file)
         processed_image = preprocessing_fn(image, self.FLAGS.image_size, self.FLAGS.image_size)
         images = batch_images(processed_image, batch_size=self.FLAGS.batch_size)
-        generated = model.net(images, training=False)
+        generated = model.net(images)
+        self.generated = generated
         """prepare for evaluate the loss"""
         processed_generated = [
             preprocessing_fn(image, self.FLAGS.image_size, self.FLAGS.image_size)
@@ -129,4 +130,40 @@ class StyleTransfer:
             variables_to_restore,
             ignore_missing_vars=True
         )
+
+    def evaluate_network(self, image_path, image_size=None):
+        with tf.Graph().as_default() as g:
+            filename_queue = tf.train.string_input_producer([image_path])
+            reader = tf.WholeFileReader()
+            _, value = reader.read(filename_queue)
+            if image_path.endswith("png"):
+                test_image = tf.image.decode_png(value)
+            elif image_path.endswith("jpeg"):
+                test_image = tf.image.decode_jpeg(value)
+            else:
+                test_image = tf.image.decode_image(value)
+
+            preprocessing_fn, unprocessing_fn = preprocessing_factory.get_preprocessing(
+                self.FLAGS.loss_model,
+                is_training=False
+            )
+            image_size = image_size or [self.FLAGS.image_size, self.FLAGS.image_size]
+            processed_image = preprocessing_fn(test_image, image_size[0], image_size[1])
+            images = tf.expand_dims(processed_image, axis=0)
+            generated = model.net(images)
+            generated = tf.squeeze(generated, axis=0)
+            with tf.Session(graph=g) as sess:
+                last_file = tf.train.latest_checkpoint(self.model_save_dir)
+                if last_file:
+                    tf.logging.info("restore model from {}".format(last_file))
+                    saver = tf.train.Saver()
+                    saver.restore(sess, last_file)
+                tf.logging.info("start to transfer")
+                coord = tf.train.Coordinator()
+                threads = tf.train.start_queue_runners(coord=coord)
+                styled_image = sess.run(generated)
+                coord.request_stop()
+                coord.join(threads)
+            tf.logging.info("finish transfer")
+            return styled_image
 

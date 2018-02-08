@@ -24,7 +24,7 @@ def deconv2d(x, num_outputs, kernel_size, stride, activation_fn):
     return x
 
 
-def net(inputs, training):
+def net(inputs):
     with tf.variable_scope("style_transfer"):
         x = tf.pad(inputs, [[0, 0], [10, 10], [10, 10], [0, 0]], mode="REFLECT")
 
