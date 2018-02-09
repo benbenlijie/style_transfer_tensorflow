@@ -4,6 +4,8 @@ from data_loader.dataset_read import get_image, batch_images
 from nets import nets_factory
 from preprocessing import preprocessing_factory
 import os
+import cv2
+import numpy as np
 
 slim = tf.contrib.slim
 
@@ -131,17 +133,12 @@ class StyleTransfer:
             ignore_missing_vars=True
         )
 
-    def evaluate_network(self, image_path, image_size=None):
+    def evaluate_network(self, image_path, image_size=None, origin_color=False):
         with tf.Graph().as_default() as g:
             filename_queue = tf.train.string_input_producer([image_path])
             reader = tf.WholeFileReader()
             _, value = reader.read(filename_queue)
-            if image_path.endswith("png"):
-                test_image = tf.image.decode_png(value)
-            elif image_path.endswith("jpeg"):
-                test_image = tf.image.decode_jpeg(value)
-            else:
-                test_image = tf.image.decode_image(value)
+            test_image = tf.image.decode_image(value)
 
             preprocessing_fn, unprocessing_fn = preprocessing_factory.get_preprocessing(
                 self.FLAGS.loss_model,
@@ -161,9 +158,24 @@ class StyleTransfer:
                 tf.logging.info("start to transfer")
                 coord = tf.train.Coordinator()
                 threads = tf.train.start_queue_runners(coord=coord)
+                origin_image = sess.run(test_image)
                 styled_image = sess.run(generated)
                 coord.request_stop()
                 coord.join(threads)
             tf.logging.info("finish transfer")
+            styled_image = np.array(styled_image, dtype=np.uint8)
+            if origin_color:
+                styled_image = self.keep_origin_color(origin_image, styled_image)
             return styled_image
 
+    @staticmethod
+    def keep_origin_color(origin, generated):
+        """ resize origin image"""
+        resized_origin = cv2.resize(origin, generated.shape[1::-1])
+
+        """ convert image from RGB to YUV. Combine the Y channel of generated and the UV channel of the origin"""
+        y, _, _ = cv2.split(cv2.cvtColor(generated, cv2.COLOR_RGB2YUV))
+        _, u, v = cv2.split(cv2.cvtColor(resized_origin, cv2.COLOR_RGB2YUV))
+
+        merged = cv2.merge([y, u, v])
+        return cv2.cvtColor(merged, cv2.COLOR_YUV2RGB)

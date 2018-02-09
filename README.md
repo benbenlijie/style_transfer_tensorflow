@@ -5,6 +5,8 @@ In this project, I build a model with Tensorflow and slim for image style transf
 ## Result:
 | sample | origin |
 | :---: | :---: |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_sin_character_1.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/sin_character_1.jpg)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_sin_character.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/sin_character.jpg)  |
 | ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test.jpg)  |
 | ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test1.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test1.jpg)  |
 | ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test2.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test2.jpg)  |
@@ -41,4 +43,11 @@ saved at ```models/candy```
 ```
 python evaluate.py -c conf/candy.yml -i img/test.jpg
 ```
-A style transfered image named ```styled_test.jpg``` will be created and placed at the same folder as the input image.
+
+A style transfered image named ```{style_name}_styled_test.jpg``` will be created and placed at the same folder as the input image.
+
+## Transfer style but not color
+If you add the flag --origin_color then the output image will retain the colors of the original image
+
+
+![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test5.jpg)  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test5.jpg)  
