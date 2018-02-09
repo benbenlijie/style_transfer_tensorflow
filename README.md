@@ -5,12 +5,11 @@ In this project, I build a model with Tensorflow and slim for image style transf
 ## Result:
 | sample | origin |
 | :---: | :---: |
-| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_sin_character_1.jpg =200)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/sin_character_1.jpg =200)  |
-| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_sin_character.jpg =200)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/sin_character.jpg =200)  |
-| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test.jpg =200)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test.jpg =200)  |
-| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test1.jpg =200)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test1.jpg =200)  |
-| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test2.jpg =200)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test2.jpg =200)  |
-| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test3.jpg =200)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test3.jpg =200)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/wave_styled_test5.jpg) |  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test5.jpg)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/cubist_styled_test3.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test3.jpg)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/candy_styled_test4.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test4.jpg)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/candy_styled_sin_character.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/sin_character.jpg)  |
+| ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/cubist_styled_sin_character_1.jpg)|  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/sin_character_1.jpg)  |
 
 
 
@@ -50,4 +49,4 @@ A style transfered image named ```{style_name}_styled_test.jpg``` will be create
 If you add the flag --origin_color then the output image will retain the colors of the original image
 
 
-![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/styled_test5.jpg =200)  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test5.jpg =200)  
+![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/candy_styled_ocolor_test1.jpg)  ![](https://github.com/benbenlijie/style_transfer_tensorflow/blob/master/img/test1.jpg)  

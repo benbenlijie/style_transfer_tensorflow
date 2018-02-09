@@ -163,19 +163,20 @@ class StyleTransfer:
                 coord.request_stop()
                 coord.join(threads)
             tf.logging.info("finish transfer")
+            """ resize to origin image"""
+            styled_image = cv2.resize(styled_image, origin_image.shape[1::-1])
             styled_image = np.array(styled_image, dtype=np.uint8)
+
             if origin_color:
                 styled_image = self.keep_origin_color(origin_image, styled_image)
             return styled_image
 
     @staticmethod
     def keep_origin_color(origin, generated):
-        """ resize origin image"""
-        resized_origin = cv2.resize(origin, generated.shape[1::-1])
 
         """ convert image from RGB to YUV. Combine the Y channel of generated and the UV channel of the origin"""
         y, _, _ = cv2.split(cv2.cvtColor(generated, cv2.COLOR_RGB2YUV))
-        _, u, v = cv2.split(cv2.cvtColor(resized_origin, cv2.COLOR_RGB2YUV))
+        _, u, v = cv2.split(cv2.cvtColor(origin, cv2.COLOR_RGB2YUV))
 
         merged = cv2.merge([y, u, v])
         return cv2.cvtColor(merged, cv2.COLOR_YUV2RGB)
